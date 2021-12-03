@@ -1,8 +1,7 @@
 package pagination.paginator;
 
-import pagination.calculator.PagingOption;
+import pagination.constant.PagingOption;
 import pagination.constant.PaginatorConstant;
-import pagination.object.PaginatedObject;
 import pagination.object.PaginationObject;
 
 public interface Paginator {
@@ -22,6 +21,8 @@ public interface Paginator {
     Paginator next() throws Throwable;
 
     ResultPaginator build() throws Throwable;
+
+    double getResultTime();
 
     String getPagingLog();
 }

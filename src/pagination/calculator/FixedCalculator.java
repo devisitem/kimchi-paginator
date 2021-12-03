@@ -101,5 +101,7 @@ public class FixedCalculator extends AbstractCommonCalculator{
         if(1 < super.getValue(CalculateConstant.CURRENT_PAGE)) {
             object.ableToStep(true,  object.isAbleToNextStep());
         }
+
+        object.setCurrentStepAndPage(super.getValue(CalculateConstant.CURRENT_STEP), super.getValue(CalculateConstant.CURRENT_PAGE));
     }
 }

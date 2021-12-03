@@ -1,8 +1,7 @@
 package pagination.paginator;
 
-import pagination.object.PaginatedObject;
 import pagination.object.PaginationObject;
-import pagination.calculator.PagingOption;
+import pagination.constant.PagingOption;
 import pagination.constant.PaginatorConstant;
 
 /**
@@ -71,5 +70,10 @@ public class KimchiPaginator implements Paginator {
     @Override
     public String getPagingLog() {
         return paginator.getPagingLog();
+    }
+
+    @Override
+    public double getResultTime() {
+        return paginator.getResultTime();
     }
 }

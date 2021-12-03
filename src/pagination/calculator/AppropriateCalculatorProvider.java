@@ -1,5 +1,6 @@
 package pagination.calculator;
 
+import pagination.constant.PagingOption;
 import pagination.paginator.Paginator;
 import pagination.constant.PaginatorConstant;
 
@@ -21,6 +22,8 @@ public class AppropriateCalculatorProvider {
             return new DefaultCalculator(new IndexCalculator.MysqlIndexCalculator());
         } else if(constant.isSameConstant(PaginatorConstant.ORACLE_PAGING)) {
             return new DefaultCalculator(new IndexCalculator.OracleIndexCalculator());
+        } else if (constant.isSameConstant(PaginatorConstant.POSTGRESQL_PAGING)) {
+            return new DefaultCalculator((new IndexCalculator.OracleIndexCalculator()));
         }
 
         return null;

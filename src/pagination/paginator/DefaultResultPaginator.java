@@ -5,12 +5,14 @@ import pagination.object.PaginatedObject;
 
 public class DefaultResultPaginator implements ResultPaginator {
     private Calculator calculator;
+    private PaginatedObject object;
 
-    public DefaultResultPaginator(Calculator calculator) {
-        this.calculator = calculator;
+    public DefaultResultPaginator(PaginatedObject object) {
+        this.object = object;
     }
     @Override
     public PaginatedObject paginate() {
-        return calculator.getResult();
+        return this.object;
     }
+
 }

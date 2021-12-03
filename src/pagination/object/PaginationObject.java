@@ -19,12 +19,17 @@ public interface PaginationObject {
 
     int getEndPage();
 
-
     boolean isAbleToNextStep();
 
     boolean isAbleToPreviousStep();
 
+    boolean hasNextPage();
+
     void ableToStep(boolean ableToPreviousStep, boolean ableToNextStep);
+
+    void setHasNextPage(boolean hasNextPage);
+
+    void setCurrentStepAndPage(int currentStep, int currentPage);
 
     PaginatedObject convertToPaginatedObject();
 

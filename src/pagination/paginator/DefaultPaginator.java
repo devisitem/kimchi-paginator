@@ -1,10 +1,11 @@
 package pagination.paginator;
 
 import pagination.calculator.Calculator;
-import pagination.calculator.PagingOption;
+import pagination.constant.PagingOption;
 import pagination.constant.CalculateConstant;
 import pagination.constant.PaginatorConstant;
 import pagination.object.DefaultPaginationObject;
+import pagination.object.PaginatedObject;
 import pagination.object.PaginationObject;
 import pagination.proxy.CalculatorProxy;
 
@@ -85,8 +86,15 @@ public class DefaultPaginator extends AbstractDefaultPaginator {
         if(this.option == null) {
             throw new NullPointerException("Paging option cannot be null. You can this paginator with call like that -> paginator.elastic().build().paginate()");
         }
+        long start = System.currentTimeMillis();
+
         this.calculator.calculate(this.object);
-        this.resultPaginator = new DefaultResultPaginator(this.calculator);
+        PaginatedObject paginated = this.calculator.getResult();
+        this.resultPaginator = new DefaultResultPaginator(paginated);
+
+        long end = System.currentTimeMillis();
+        super.setResultTime(((end - start) / 1000.0));
+
         return this.resultPaginator;
     }
 
@@ -101,37 +109,51 @@ public class DefaultPaginator extends AbstractDefaultPaginator {
             builder
                     .append(NEW_LINE)
                     .append("----------- Welcome To Kimchi Paginator -----------").append(NEW_LINE);
-
+            int startIndex = builder.length();
             if(this.object.isAbleToPreviousStep()) {
                 builder.append("[Pre]");
             }
-
+            int found = 0;
             for(int i = this.object.getStartPage();i <= this.object.getEndPage();i++){
                 if(currentPage == i) {
+                    found = builder.length();
                     builder.append(" "+i+" ");
                 } else {
                     builder.append("["+i+"]");
                 }
             }
-
             if(this.object.isAbleToNextStep()) {
                 builder.append("[Next]");
             }
+
+            int target = (found - startIndex);
+            builder.append(NEW_LINE);
+
+            for(int i = 0;i < (target + 1);i++) {
+                builder.append(" ");
+            }
+            builder.append("↑");
             builder.append(NEW_LINE).append(NEW_LINE);
             builder
                     .append(String.format("[Total Page Count]      : [%5d]",calculated.get(CalculateConstant.TOTAL_PAGE_COUNT.getValueName()))).append(NEW_LINE)
                     .append(String.format("[Total Step Count]      : [%5d]",calculated.get(CalculateConstant.TOTAL_STEP_CNT.getValueName()))).append(NEW_LINE)
-                    .append(String.format("[Currently Step]        : [%5d]",currentPage)).append(NEW_LINE)
-                    .append(String.format("[Currently Page Number] : [%5d]",calculated.get(CalculateConstant.CURRENT_PAGE.getValueName()))).append(NEW_LINE);
+                    .append(String.format("[Currently Step]        : [%5d]",calculated.get(CalculateConstant.CURRENT_STEP.getValueName()))).append(NEW_LINE)
+                    .append(String.format("[Currently Page Number] : [%5d]",currentPage)).append(NEW_LINE)
+                    .append(String.format("[Result time] : [%.3f] sec", super.getResultTime())).append(NEW_LINE);
 
             if(this.constant.isSameConstant(PaginatorConstant.ORACLE_PAGING)) {
                 builder
-                        .append("You can paginate with Oracle DataBases SQL that like following Query.").append(NEW_LINE)
+                        .append("You can paginate with Oracle DataBase's SQL that like following Query.").append(NEW_LINE)
                         .append("==> ").append(String.format("BETWEEN ROWNUM %5d AND %5d",calculated.get(CalculateConstant.START_INDEX.getValueName()), calculated.get(CalculateConstant.END_INDEX.getValueName()))).append(NEW_LINE);
             } else if (this.constant.isSameConstant(PaginatorConstant.MYSQL_PAGING)) {
                 builder
-                        .append("You can paginate with MySQL DataBases SQL that like following Query.").append(NEW_LINE)
+                        .append("You can paginate with MySQL DataBase's SQL that like following Query.").append(NEW_LINE)
                         .append("==> ").append(String.format("LIMIT %5d, %5d", calculated.get(CalculateConstant.START_INDEX.getValueName()), calculated.get(CalculateConstant.END_INDEX.getValueName()))).append(NEW_LINE);
+            } else if(this.constant.isSameConstant(PaginatorConstant.POSTGRESQL_PAGING)) {
+                builder
+                        .append("You can paginate with PostgreSQL DataBase's SQL that s like either following Queries.").append(NEW_LINE)
+                        .append(" ==> ").append(String.format("LIMIT %5d OFFSET %5d", calculated.get(CalculateConstant.START_INDEX.getValueName()), calculated.get(CalculateConstant.END_INDEX.getValueName()))).append(NEW_LINE)
+                        .append(" ==> ").append(String.format("OFFSET %5d ROWS FETCH LIMIT %5d", calculated.get(CalculateConstant.END_INDEX.getValueName()), calculated.get(CalculateConstant.START_INDEX.getValueName()))).append(NEW_LINE);
             }
 
             builder.append("---------------------------------------------------").append(NEW_LINE);

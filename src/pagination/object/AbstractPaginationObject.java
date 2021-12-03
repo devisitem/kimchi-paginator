@@ -34,6 +34,8 @@ public abstract class AbstractPaginationObject implements PaginationObject {
 
     private boolean ableToPreviousStep = false;
 
+    private boolean hasNextPage = false;
+
     private CommonValidator validator = new CommonValidator();
 
     private int totalPageCnt;
@@ -88,9 +90,24 @@ public abstract class AbstractPaginationObject implements PaginationObject {
     }
 
     @Override
+    public final boolean hasNextPage() {
+        return this.hasNextPage;
+    }
+
+    public final void setHasNextPage(boolean hasNextPage){
+        this.hasNextPage = hasNextPage;
+    }
+
+    @Override
     public final void ableToStep(boolean ableToPreviousStep, boolean ableToNextStep) {
         this.ableToPreviousStep = ableToPreviousStep;
         this.ableToNextStep = ableToNextStep;
+    }
+
+    @Override
+    public void setCurrentStepAndPage(int currentStep, int currentPage) {
+        this.currentStep = currentStep;
+        this.currentPage = currentPage;
     }
 
     @Override
@@ -118,7 +135,6 @@ public abstract class AbstractPaginationObject implements PaginationObject {
     public final int getContentsPerPage() {
         return this.contentsPerPage;
     }
-
 
     public final int getTotalPageCnt() {
         return totalPageCnt;

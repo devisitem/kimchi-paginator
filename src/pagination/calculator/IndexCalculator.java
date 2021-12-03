@@ -35,4 +35,20 @@ public abstract class IndexCalculator {
             return (startIndex + contentsPerPage) - 1;
         }
     }
+
+    public static class PostgreSqlIndexCalculator extends  IndexCalculator {
+
+        @Override
+        protected int calStartIndex(int currentPage, int numSizePerPage) {
+
+            return numSizePerPage;
+        }
+
+        @Override
+        protected int calEndIndex(int currentPage, int numSizePerPage, int startIndex, int contentsPerPage) {
+            int endIndex = (currentPage * numSizePerPage) - numSizePerPage;
+
+            return endIndex;
+        }
+    }
 }

@@ -2,8 +2,7 @@ package pagination.proxy;
 
 import pagination.calculator.AppropriateCalculatorProvider;
 import pagination.calculator.Calculator;
-import pagination.calculator.IndexCalculator;
-import pagination.calculator.PagingOption;
+import pagination.constant.PagingOption;
 import pagination.object.PaginatedObject;
 import pagination.object.PaginationObject;
 import pagination.constant.PaginatorConstant;

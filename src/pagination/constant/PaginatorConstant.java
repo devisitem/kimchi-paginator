@@ -6,6 +6,7 @@ public enum PaginatorConstant {
 
     MYSQL_PAGING(100, "MySql Paging"),
     ORACLE_PAGING(101, "Oracle Paging"),
+    POSTGRESQL_PAGING(102, "PostgreSql Paging"),
     ;
 
     private int code;

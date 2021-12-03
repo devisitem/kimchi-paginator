@@ -52,6 +52,14 @@ public abstract class AbstractCommonCalculator {
 
     protected abstract void calMove(PaginationObject object, AbstractCommonCalculator calculator, int currentStep, int totalStepCnt, int numSizePerPage) throws Throwable;
 
+    protected void calAbleToNext(PaginationObject object) throws Throwable {
+        int currentPage = this.getValue(CalculateConstant.CURRENT_PAGE);
+        int totalPageCnt = this.getValue(CalculateConstant.TOTAL_PAGE_COUNT);
+
+        if(currentPage < totalPageCnt) {
+            object.setHasNextPage(true);
+        }
+    }
 
     protected final void addValue(CalculateConstant constant, Integer value) {
         String key = constant.getValueName();

@@ -9,6 +9,8 @@ public abstract class AbstractDefaultPaginator implements Paginator {
 
     private PaginatorConstant constant = PaginatorConstant.MYSQL_PAGING;
 
+    private double resultTime;
+
     @Override
     public final void setPagingObject(PaginationObject object, PaginatorConstant constant) throws Throwable {
         setPagingObject(object);
@@ -27,4 +29,12 @@ public abstract class AbstractDefaultPaginator implements Paginator {
         return this.constant;
     }
 
+    @Override
+    public double getResultTime() {
+        return this.resultTime;
+    }
+
+    public void setResultTime(double resultTime) {
+        this.resultTime = resultTime;
+    }
 }

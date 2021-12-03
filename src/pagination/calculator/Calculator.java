@@ -1,5 +1,6 @@
 package pagination.calculator;
 
+import pagination.constant.PagingOption;
 import pagination.object.PaginatedObject;
 import pagination.object.PaginationObject;
 

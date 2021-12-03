@@ -1,4 +1,4 @@
-package pagination.calculator;
+package pagination.constant;
 
 import java.util.Arrays;
 
