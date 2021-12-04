@@ -30,21 +30,19 @@ public class FixedCalculator extends AbstractCommonCalculator{
     @Override
     protected int calEndPage(int totalPageCnt, int currentPage, int numSizePerPage, int currentStep) {
 
-        int pivot = (numSizePerPage / 2) + (numSizePerPage % 2);
+        int pivot = ((int) Math.floor(((float) numSizePerPage) / 2));
         if (totalPageCnt <= numSizePerPage) {
 
             return totalPageCnt;
         }
 
-        if(pivot < currentPage) {
-            if((currentPage + (pivot)) <= totalPageCnt) {
+        if((currentPage + (pivot)) <= totalPageCnt) {
 
-                return (currentPage + pivot );
-            } else if(currentPage + pivot > totalPageCnt) {
+            return (currentPage + pivot);
+        } else if(currentPage + pivot > totalPageCnt) {
 
-                return totalPageCnt;
+            return totalPageCnt;
 
-            }
         }
 
         return numSizePerPage;

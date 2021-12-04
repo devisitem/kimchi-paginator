@@ -1,9 +1,21 @@
-### Introduction
+*Introduction*
 
 안녕하세요, 저는 Kimchi-dev입니다.
 서버 개발자이지만, 페이징 처리가 필요한 업무를 하다, 소스 정리도 안되고 사용이 불편하여 이 페이지네이터를 만들게 되었습니다.
 
 비록, 큰 기능은 아니지만 웹과 상관없이 자바 어플리케이션이라면 모두 사용가능한 페이지네이터 입니다.
+부족한 영어지만 모두가 볼수 있도록 영어로 작성 하겠습니다! 코드만 보셔도 쉽게 사용 하실수 있습니다. !
+
+![init](image/pagination.png?raw=true)
+
+# give it to me, if you bothered!
+
+## At that time, you only need to choose 3 things!
+
+1. number of page block size per page.
+2. number of contents per page.
+3. your database. (Ex. PaginatorConstant.MYSQL_PAGING)
+
 # KimchiPaginator
 
 There are 3V !
@@ -24,7 +36,15 @@ Very Simple, Very Convenience, Very don’t care dependent in java lol XD.
 
 Java Application ? Spring ? Etc ? It doesn't matter if in JVM
 
-![init](https://github.com/Kimchi-dev/KimchiPaginator/blob/main/image/paginated1.png?raw=true)
+![init](image/paginated3.png?raw=true)
+
+*Note: You can control these list size.*
+```java
+KimchiPaginator paginator = new KimchiPaginator();
+paginator.init(boardList.size(), {A: number of page button per page = 8},{B: number of contents per page = 3},{Select DataBase})
+```
+
+### Do it !
 
 ```java
 @Service
@@ -33,12 +53,12 @@ public class BoardService {
     
     private final BoardRepository boardRepository;
     
-    @Transactional(readOnly = true) // matching for both  total board size and actual lookuped board size.
+    @Transactional(readOnly = true) // matching for both **total board size and actual lookuped board size.
     public ResponseEntity<List<Board>> getBoardList(int currentPage) {
         KimchiPaginator paginator = new KimchiPaginator();
       	int totalSize = boardRepository.getTotalBoardSize();
         
-        paginator.init(totalSize, 8, 25, PaginatorConstant.POSTGRESQL_PAGING);
+        paginator.init(totalSize, 8, 3, PaginatorConstant.POSTGRESQL_PAGING);
         
         /* End ! */
         PaginatedObject result = paginator.elastic()
@@ -55,17 +75,17 @@ public class BoardService {
 
 ### Paging Option
 
-**If you want to changing other paging mode ? **
-*
-There are two Pagination mode !
+**If you want to changing other paging mode ?**
+* There are two Pagination mode !
 ```java
 paginator.elastic().build().paginate(); // [1][2][3][4][5][6][7] 8 [9] It is not to fixed !
-paginator.fixed().build().paginate(); //[4][5][6][7] 8 [9][10][11][12] If currently page isn't positioning at side, that Always fixed with center !
+paginator.fixed().build().paginate();   // [4][5][6][7] 8 [9][10][11][12] If currently page isn't positioning at side, that Always fixed with center !
 ```
 
 **If you bother to appying both move previous and next ?**
-*
-There are two move functions !
+
+* There are two move functions !
+
 ```java
 boolean clickPre = true; //when they clicked previous button
 boolean clickNext = false; //when they clicked next button
@@ -101,7 +121,7 @@ int endIndex = result.getEndIndex();
 ```java
 KimchiPaginator paginator = new KimchiPaginator();
 
-int currentPage = currentPage; //9
+int currentPage = page; //9
 
 paginator.init(totalBoardList.size(), 8, 3, currentPage, PaginatorConstant.MYSQL_PAGING);
 PaginatedObject result = paginator.elastic()
@@ -131,15 +151,15 @@ You can paginate with MySQL DataBase's SQL that like following Query.
 ```
 
 
-### That's not All ! I
+### That's not All !
 
-	1. create simple application and just setting !
+1. create simple application and just setting !
 
 ```java
 @RestController
 public class BoardController {
     
-	   @GetMapping("/board/list")
+    @GetMapping("/board/list")
     public ResponseEntity<List<Board>> lookUpBoardList(int currentPage) throws Throwable {
         KimchiPaginator paginator = new KimchiPaginator();
 
@@ -150,9 +170,10 @@ public class BoardController {
         PaginatedObject result = paginator.elastic()
             .build()
             .paginate();
+        
         PaginatedObject result = paginator.elastic().build().paginate();
 
-			
+        ...
     }
 }
 ```
@@ -181,7 +202,7 @@ maker.html().withCss().generate().download("/Users/Kimchi-dev/Documents/paginati
 ```
 
 
-[image:F514C984-432C-4CAF-BAA5-169004AA9DD5-1195-0000004DDEED3F8E/paginated1.png]
+![init](image/paginated1.png?raw=true)
 
 [Fig.1] generated sample html
 
@@ -196,7 +217,8 @@ PagingMaker maker = new PagingMaker(result, "/board/list", true); //last paramet
 
 ```
 
-[image:AB8678CB-822D-48E2-ACAB-97F6BCD0E302-1195-00000051D5081C09/paginated2.png]
+
+![init](image/paginated2.png?raw=true)
 
 [Fig.2] disabled next button.
 

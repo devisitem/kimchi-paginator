@@ -9,10 +9,10 @@ public class Main {
 
         KimchiPaginator paginator = new KimchiPaginator();
 
-        int currentPage = 6;
+        int currentPage = 127764;
 
-        paginator.init(160,7,8, currentPage, PaginatorConstant.MYSQL_PAGING);
-        PaginatedObject result = paginator.fixed()
+        paginator.init(7893929,11,17, currentPage, PaginatorConstant.MYSQL_PAGING);
+        PaginatedObject result = paginator.elastic()
                 .build()
                 .paginate();
 
