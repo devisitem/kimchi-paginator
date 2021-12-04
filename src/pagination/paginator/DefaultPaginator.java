@@ -7,7 +7,7 @@ import pagination.constant.PaginatorConstant;
 import pagination.object.DefaultPaginationObject;
 import pagination.object.PaginatedObject;
 import pagination.object.PaginationObject;
-import pagination.proxy.CalculatorProxy;
+import pagination.calculator.CalculatorProxy;
 
 import java.util.Map;
 
@@ -163,10 +163,10 @@ public class DefaultPaginator extends AbstractDefaultPaginator {
             builder
                     .append("[WARN] Please Check KimchiPaginator Usage.").append(NEW_LINE)
                     .append("[WARN] => KimchiPaginator paginator = new KimchiPaginator();").append(NEW_LINE)
-                    .append("[WARN] => paginator.setPagingObject({number-of-board-list}, 10, 10, currentPage, PaginatorConstant.ORACLE_PAGING").append(NEW_LINE)
+                    .append("[WARN] => paginator.init({number-of-board-list}, 10, 10, currentPage, PaginatorConstant.ORACLE_PAGING);").append(NEW_LINE)
                     .append("[WARN] => paginator.elastic().paginate();").append(NEW_LINE)
                     .append("[WARN] => System.out.println(paginator.getPagingLog())").append(NEW_LINE)
-                    .append("[WARN] URL : https://github.com/Kimchi-dev/KimchiPaginator").append(NEW_LINE);
+                    .append("[WARN] URL : https://github.com/Kimchi-dev/kimchi-easy-paginator").append(NEW_LINE);
         }
         return builder.toString();
     }

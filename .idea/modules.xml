@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KimchPaginator.iml" filepath="$PROJECT_DIR$/KimchPaginator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kimchi-paginator.iml" filepath="$PROJECT_DIR$/kimchi-paginator.iml" />
     </modules>
   </component>
 </project>

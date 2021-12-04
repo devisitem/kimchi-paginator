@@ -1,4 +1,4 @@
-package pagination.proxy;
+package pagination.calculator;
 
 import pagination.calculator.AppropriateCalculatorProvider;
 import pagination.calculator.Calculator;
