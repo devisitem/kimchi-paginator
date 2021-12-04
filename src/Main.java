@@ -9,15 +9,15 @@ public class Main {
 
         KimchiPaginator paginator = new KimchiPaginator();
 
-        int currentPage = 183742;
+        int currentPage = 6;
 
-        paginator.init(7893929,11,17, currentPage, PaginatorConstant.MYSQL_PAGING);
-        PaginatedObject result = paginator.elastic()
+        paginator.init(160,7,8, currentPage, PaginatorConstant.MYSQL_PAGING);
+        PaginatedObject result = paginator.fixed()
                 .build()
                 .paginate();
 
         PagingMaker maker = new PagingMaker(result, "/board/list", true);
-        maker.setMoveButtonName("<-~", "~->").html().withCss().generate().download("/Users/jason/Documents/pagination/sample.html");
+        maker.html().withCss().generate().download("/Users/jason/Documents/pagination/sample.html");
 
         String pagingLog = paginator.getPagingLog();
         System.out.println(pagingLog);
