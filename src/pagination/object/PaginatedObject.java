@@ -10,8 +10,9 @@ public class PaginatedObject {
     private int startPage;
     private int endPage;
     private int currentPage;
+    private int contentsPerPage;
 
-    void setResultData(int startIndex, int endIndex, boolean ableToPreStep, boolean ableToNextStep, boolean hasNextPage, int startPage, int endPage, int currentPage) {
+    void setResultData(int startIndex, int endIndex, boolean ableToPreStep, boolean ableToNextStep, boolean hasNextPage, int startPage, int endPage, int currentPage,int contentsPerPage) {
         this.startIndex = startIndex;
         this.endIndex = endIndex;
         this.ableToPreStep = ableToPreStep;
@@ -20,6 +21,7 @@ public class PaginatedObject {
         this.startPage = startPage;
         this.endPage = endPage;
         this.currentPage = currentPage;
+        this.contentsPerPage = contentsPerPage;
     }
 
     public int getStartIndex() {
@@ -52,5 +54,9 @@ public class PaginatedObject {
 
     public int getCurrentPage() {
         return this.currentPage;
+    }
+
+    public int getContentsPerPage() {
+        return this.contentsPerPage;
     }
 }

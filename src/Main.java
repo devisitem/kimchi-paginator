@@ -1,5 +1,6 @@
 import pagination.constant.PaginatorConstant;
 import pagination.maker.PaginationHTMLMaker;
+import pagination.maker.PagingMaker;
 import pagination.object.PaginatedObject;
 import pagination.paginator.KimchiPaginator;
 
@@ -8,18 +9,17 @@ public class Main {
 
         KimchiPaginator paginator = new KimchiPaginator();
 
-        int currentPage = 9;
+        int currentPage = 183742;
 
-        paginator.init(125,8,3, currentPage, PaginatorConstant.MYSQL_PAGING);
+        paginator.init(7893929,11,17, currentPage, PaginatorConstant.MYSQL_PAGING);
         PaginatedObject result = paginator.elastic()
                 .build()
                 .paginate();
 
+        PagingMaker maker = new PagingMaker(result, "/board/list", true);
+        maker.setMoveButtonName("<-~", "~->").html().withCss().generate().download("/Users/jason/Documents/pagination/sample.html");
 
-        PaginationHTMLMaker maker = new PaginationHTMLMaker(result);
-        String html = maker.generate("/board/list");
         String pagingLog = paginator.getPagingLog();
-        System.out.println(html);
         System.out.println(pagingLog);
     }
 }
